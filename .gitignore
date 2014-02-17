@@ -1,0 +1,8 @@
+/var/report/*
+/var/log/exception.log
+/var/log/system.log
+/var/locks/*
+/var/session/*
+/var/cache/*
+/var/tmp/*
+/media/tmp/*
