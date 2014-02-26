@@ -1,125 +1,116 @@
-/* DataTypes */
+/* DataPropertyTypes */
 
-CREATE Table dataTypePropertyTypes(
+CREATE Table dataPropertyType(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(100),
     PRIMARY_KEY( id )
 );
 
-INSERT INTO dataTypePropertyTypes ( name ) VALUES ( 'text' );
-INSERT INTO dataTypePropertyTypes ( name ) VALUES ( 'url' );
-INSERT INTO dataTypePropertyTypes ( name ) VALUES ( 'date' );
+INSERT INTO dataPropertyType ( name ) VALUES ( 'text' );
+INSERT INTO dataPropertyType ( name ) VALUES ( 'url' );
+INSERT INTO dataPropertyType ( name ) VALUES ( 'date' );
 
 
-/* ObjectTypes */
+/* ObjectPropertyTypes */
 
-CREATE Table objectTypePropertyTypes(
+CREATE Table objectPropertyType(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR( 100 ),
     url VARCHAT( 255 ),
     PRIMARY_KEY ( id )
 );
 
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'Brand', 'schema.org/Brand' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'Organization', 'schema.org/Organization' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'Distance', 'schema.org/Distance' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'QuantitativeValue', 'schema.org/QuantitativeValue' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'Product', 'schema.org/Product' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'OfferItemCondition', 'schema.org/OfferItemCondition' );
-INSERT INTO objectTypePropertyTypes ( name, url ) VALUES ( 'ProductModel', 'schema.org/ProductModel' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'Brand', 'schema.org/Brand' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'Organization', 'schema.org/Organization' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'Distance', 'schema.org/Distance' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'QuantitativeValue', 'schema.org/QuantitativeValue' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'Product', 'schema.org/Product' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'OfferItemCondition', 'schema.org/OfferItemCondition' );
+INSERT INTO objectPropertyType ( name, url ) VALUES ( 'ProductModel', 'schema.org/ProductModel' );
 
 
-/* Table propertyTypes */
+/* DataProperties */
 
-CREATE Table propertyType (
-    id INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR( 50 ),
-    PRIMARY_KEY( id )
-);
-
-INSERT INTO propertyType ( name ) VALUES ( 'dataType' );
-INSERT INTO propertyType ( name ) VALUES ( 'objectType' );
-
-
-/* Table Properties */
-
-CREATE Table properties (
+CREATE Table dataProperty (
     id INTO NOT NULL AUTO_INCREMENT,
     name VARCHAR( 50 ),
     url VARCHAR( 100 ),
-    type INT,
     typeId INT,
     PRIMARY_KEY( id ),
-    FOREIGN KEY ( type ) REFERENCES propertyType(id)
+    FOREIGN KEY ( typeId ) REFERENCES dataPropertyType(id)
 );
 
 
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'alternateName', 'schema.org/alternateName', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'text' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'description', 'schema.org/decription', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'text' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'name', 'schema.org/name', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'text' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'sameAs', 'schema.org/sameAs', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'url' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'color', 'schema.org/color', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'text' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'brand', 'schema.org/brand', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Brand' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'brand', 'schema.org/brand', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Organization' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'depth', 'schema.org/depth', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Distance' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'depth', 'schema.org/depth', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'QuantitativeValue' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'height', 'schema.org/height', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Distance' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'height', 'schema.org/height', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'QuantitativeValue' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'isAccessoryOrSparePartFor', 'schema.org/isAccessoryOrSparePartFor', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Product' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'isConsumableFor', 'schema.org/isConsumableFor', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Product' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'isRelatedTo', 'schema.org/isRelatedTo', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Product' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'isSimilarTo', 'schema.org/isSimilarTo', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Product' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'itemCondition', 'schema.org/itemCondition', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'OfferItemCondition' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'model', 'schema.org/model', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'ProductModel' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'model', 'schema.org/model', SELECT id FROM propertyType WHERE name = 'dataType', SELECT id from dataTypePropertyTypes WHERE name = 'text' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'manufacturer', 'schema.org/manufacturer', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Organization' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'weight', 'schema.org/weight', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'QuantitativeValue' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'width', 'schema.org/weight', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'QuantitativeValue' );
-
-INSERT INTO properties ( name, url, type, typeId ) VALUES ( 'width', 'schema.org/weight', SELECT id FROM propertyType WHERE name = 'objectType', SELECT id from objectTypePropertyTypes WHERE name = 'Distance' );
+INSERT INTO dataProperty ( name, url, typeId ) VALUES ( 'alternateName', 'schema.org/alternateName', ( SELECT id FROM dataPropertyType WHERE name = 'text' ) );
+INSERT INTO dataProperty ( name, url, typeId ) VALUES ( 'description', 'schema.org/description', ( SELECT id FROM dataPropertyType WHERE name = 'text' ) );
+INSERT INTO dataProperty ( name, url, typeId ) VALUES ( 'name', 'schema.org/name', ( SELECT id FROM dataPropertyType WHERE name = 'text' ) );
+INSERT INTO dataProperty ( name, url, typeId ) VALUES ( 'color', 'schema.org/color', ( SELECT id FROM dataPropertyType WHERE name = 'text' ) );
+INSERT INTO dataProperty ( name, url, typeId ) VALUES ( 'model', 'schema.org/model', ( SELECT id FROM dataPropertyType WHERE name = 'text' ) );
 
 
-/* Table Instances */
+/* ObjectProperties */
 
-CREATE Table instances(
+CREATE Table objectProperty (
+    id INTO NOT NULL AUTO_INCREMENT,
+    name VARCHAR( 50 ),
+    url VARCHAR( 100 ),
+    typeId INT,
+    PRIMARY_KEY( id ),
+    FOREIGN KEY ( typeId ) REFERENCES objectPropertyType(id)
+);
+
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'brand', 'schema.org/brand', ( SELECT id FROM objectPropertyType WHERE name = 'Brand' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'brand', 'schema.org/brand', ( SELECT id FROM objectPropertyType WHERE name = 'Organization' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'depth', 'schema.org/depth', ( SELECT id FROM objectPropertyType WHERE name = 'Distance' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'depth', 'schema.org/depth', ( SELECT id FROM objectPropertyType WHERE name = 'QuantitativeValue' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'height', 'schema.org/height', ( SELECT id FROM objectPropertyType WHERE name = 'Distance' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'height', 'schema.org/height', ( SELECT id FROM objectPropertyType WHERE name = 'QuantitativeValue' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'isAccessoryOrSparePartFor', 'schema.org/isAccessoryOrSparePartFor', ( SELECT id FROM objectPropertyType WHERE name = 'Product' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'isConsumableFor', 'schema.org/isConsumableFor', ( SELECT id FROM objectPropertyType WHERE name = 'Product' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'isRelatedTo', 'schema.org/isRelatedTo', ( SELECT id FROM objectPropertyType WHERE name = 'Product' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'isSimilarTo', 'schema.org/isSimilarTo', ( SELECT id FROM objectPropertyType WHERE name = 'Product' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'itemCondition', 'schema.org/itemCondition', ( SELECT id FROM objectPropertyType WHERE name = 'Product' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'model', 'schema.org/model', ( SELECT id FROM objectPropertyType WHERE name = 'ProductModel' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'manufacturer', 'schema.org/manufacturer', ( SELECT id FROM objectPropertyType WHERE name = 'Organization' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'weight', 'schema.org/weight', ( SELECT id FROM objectPropertyType WHERE name = 'QuantitativeValue' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'width', 'schema.org/width', ( SELECT id FROM objectPropertyType WHERE name = 'QuantitativeValue' ) );
+INSERT INTO objectProperty ( name, url, typeId ) VALUES ( 'width', 'schema.org/width', ( SELECT id FROM objectPropertyType WHERE name = 'Distance' ) );
+
+
+/* Object Instances */
+
+CREATE Table objectInstance (
     id INTO NOT NULL AUTO_INCREMENT,
     name VARCHAR( 50 ),
     PRIMARY_KEY( id )
 );
 
-INSERT INTO Table instances ( name ) VALUES ( 'Nokia 2610 Phone' );
+INSERT INTO objectInstance ( name ) VALUES ( 'Nokia 2610 Phone' );
 
 
-/* Table dataTypeAttributes */
+/* Data Tuples */
 
-CREATE TABLE instanceAttributes(
+CREATE TABLE dataTuples(
     id INT NOT NULL AUTO_INCREMENT,
-    propertyId INT NOT NULL,
-    value
+    objectInstanceId INT NOT NULL,
+    dataPropertyId INT NOT NULL,
+    value VARCHAR(255),
+    FOREIGN KEY ( objectInstanceId ) REFERENCES objectInstance(id),
+    FOREIGN KEY ( dataPropertyId ) REFERENCES dataProperty(id)
+);
+
+INSERT INTO dataTuples ( objectInstanceId, dataPropertyId, value ) VALUES ( ( SELECT id FROM objectInstance WHERE name = 'Nokia 2610 Phone' ), ( SELECT id FROM dataProperty WHERE name = 'alternateName' ), 'Nokia 2610' );
+
+INSERT INTO dataTuples ( objectInstanceId, dataPropertyId, value ) VALUES ( ( SELECT id FROM objectInstance WHERE name = 'Nokia 2610 Phone' ), ( SELECT id FROM dataProperty WHERE name = 'description' ), 'The Nokia 2610 is an easy to use device that combines multiple messaging options including email, instant messaging, and more. You can even download MP3 ringtones, graphics, and games straight to the phone, or surf the Internet with Cingular's MEdia Net service. It's the perfect complement to Cingular service for those even remotely interested in mobile Web capabilities in an affordable handset.' );
+
+INSERT INTO dataTuples ( objectInstanceId, dataPropertyId, value ) VALUES ( ( SELECT id FROM objectInstance WHERE name = 'Nokia 2610 Phone' ), ( SELECT id FROM dataProperty WHERE name = 'name' ), 'Nokia 2610 Phone' );
+
+INSERT INTO dataTuples ( objectInstanceId, dataPropertyId, value ) VALUES ( ( SELECT id FROM objectInstance WHERE name = 'Nokia 2610 Phone' ), ( SELECT id FROM dataProperty WHERE name = 'color' ), 'black' );
+
+INSERT INTO dataTuples ( objectInstanceId, dataPropertyId, value ) VALUES ( ( SELECT id FROM objectInstance WHERE name = 'Nokia 2610 Phone' ), ( SELECT id FROM dataProperty WHERE name = 'model' ), '2160' );
 
 
 
-INSERT INTO ProductInstanceAttributes ( 
 
 
 n2610|Enabled|Black|Nokia 2610 Phone|2610|4.1 x 1.7 x 0.7 inches|The Nokia 2610 is an easy to use device that combines multiple messaging options including email, instant messaging, and more. You can even download MP3 ringtones, graphics, and games straight to the phone, or surf the Internet with Cingular's MEdia Net service. It's the perfect complement to Cingular service for those even remotely interested in mobile Web capabilities in an affordable handset. Design Compact and stylish, the 2610 features a candybar design sporting a bright 128 x 128 pixel display capable of displaying over 65,000 colors. Most of the phone's features and on-screen menus are controlled by a center toggle on the control pad. A standard hands-free headphone jack is provided, as are volume control keys, and there's even a "Go-To" button that can be assigned by the user for quick access to favorite applications. Lastly, the included speakerphone allows you to talk handsfree, and because the phone sports an internal antenna, there's nothing to snag or break off.|Integrated camera with video recorder to capture those special moments Enriched data connections for complete mobile access via Email, MMS, and MEdia Net Personalize with downloadable MP3 and polyphonic Ring tones, Games, and Graphics Use AIM, Yahoo! and MSN Messenger to stay in touch on the go Mobile Internet browser and email|Nokia 2610, cell, phone,|The words "entry level" no longer mean "low-end," especially when it comes to the Nokia 2610. Offering advanced media and calling features without breaking the bank|149.99|1
